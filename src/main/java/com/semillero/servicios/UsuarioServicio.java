@@ -9,22 +9,12 @@ import com.semillero.repositorios.CuentaDB;
 import com.semillero.repositorios.Repositorio;
 
 public class UsuarioServicio {
-    private Repositorio usuarioRepositorio;
-
-
-
-
-    
-    
+    private static Repositorio usuarioRepositorio;
 
     public UsuarioServicio() {
         usuarioRepositorio = new CuentaDB();
     }
 
-    protected int id;
-    protected String nombre;
-    protected String apellido;
-    protected int cedula;
     public void guardarUsuario(Map datos) {
         int id = (int) datos.get("id");
         String nombre = (String) datos.get("nombre");
@@ -37,12 +27,12 @@ public class UsuarioServicio {
         usuarioRepositorio.guardar(newPerson);
     }
 
-    public List<Usuarios> listarusuario() {
+    public static List<Usuarios>listarusuario() {
         
         return (List<Usuarios>) usuarioRepositorio.listar();
     }
 
-    public Usuarios buscarcUsuarios(String cedula) throws Exception {
+    public Usuarios buscarUsuarios(String cedula) throws Exception {
         Object usuario = usuarioRepositorio.buscar(cedula);
         if (usuario == null) {
             throw new Exception("No se encontro la Cuenta");

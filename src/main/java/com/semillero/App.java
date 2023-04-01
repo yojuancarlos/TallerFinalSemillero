@@ -17,7 +17,7 @@ public class App
         ServletContextHandler context = new ServletContextHandler();
 
         context.setContextPath("/");
-        context.addServlet(HolaMundo.class, "/hola/*");
+        //context.addServlet(HolaMundo.class, "/hola/*");
         //context.addServlet(PersonaController.class, "/persona/*");
 
         server.setHandler(context);
