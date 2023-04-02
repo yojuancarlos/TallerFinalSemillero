@@ -43,6 +43,7 @@ public class TransaccionServicio {
 
     public Transacciones depositar(String monto) throws Exception {
         Object transaccion = transacccionRepositorio.buscar(monto);
+
         if (transaccion == null) {
             throw new Exception("No se encontro la Cuenta");
         }
@@ -52,18 +53,11 @@ public class TransaccionServicio {
     public void eliminartransacciones(String identificador) {
         transacccionRepositorio.eliminar(identificador);
     }
-
-    public static void actualizartramsacciones(Map datos) {
-        String fecha = (String) datos.get("fecha");
-        String hora = (String) datos.get("hora");
-        String tipo_transaccion = (String) datos.get("tipo_transaccion");
-        int monto = (int) datos.get("monto");
-        int id_cuenta = (int) datos.get("id_cuenta");
-        String tipo_cuenta_destino = (String) datos.get("tipo_cuenta_destino");
     
-
-
-        Transacciones newPerson = new Transacciones(id_cuenta, fecha, hora, tipo_transaccion, monto, id_cuenta, tipo_cuenta_destino);
+    public static void actualizartramsacciones(Map datos) {
+       
+        int monto = (int) datos.get("monto");
+        Transacciones newPerson = new Transacciones(monto, null, null, null, monto, monto, null);
         transacccionRepositorio.actualizar(newPerson);
     }
 

@@ -60,6 +60,29 @@ public class Transacciones {
         this.id_cuenta = id_cuenta;
         this.tipo_cuenta_destino = tipo_cuenta_destino;
     }
+
+
+
+    public void depositar(double saldo) {
+        double montoConAdicional = monto;
+        // Solo se aplica el adicional para los primeros dos depósitos.
+        if (this.monto == 0 && saldo > 0) {
+            montoConAdicional += (saldo * 0.005);
+        } else if (this.monto > 0 && saldo > 0) {
+            montoConAdicional += (monto * 0.005);
+            this.monto += montoConAdicional;
+        }
+        this.monto += monto;
+    }
+
+    public void retirar(double saldo) {
+        if (saldo > 0 && saldo <= this.monto) {
+            this.monto -= saldo;
+        }
+    }
+	
+	
+	
     
         
 }

@@ -65,34 +65,6 @@ public   class Cuentas {
         this.tipo = tipo;
     }
 
-    public void depositar(double monto) {
-        double montoConAdicional = monto;
-        // Solo se aplica el adicional para los primeros dos depósitos.
-        if (this.saldo == 0 && monto > 0) {
-            montoConAdicional += (monto * 0.005);
-        } else if (this.saldo > 0 && monto > 0) {
-            montoConAdicional += (monto * 0.005);
-            this.saldo += montoConAdicional;
-        }
-        this.saldo += monto;
-    }
-
-    public void retirar(double monto) {
-        if (monto > 0 && monto <= this.saldo) {
-            this.saldo -= monto;
-        }
-    }
-	
-	
-    public void transferir(double monto, Cuentas cuentaDestino) {
-        
-        
-
-        if (monto <= this.saldo) {
-            this.saldo -= monto;
-            cuentaDestino.depositar(monto);
-        }
-    }
-	
+   
 	
 }

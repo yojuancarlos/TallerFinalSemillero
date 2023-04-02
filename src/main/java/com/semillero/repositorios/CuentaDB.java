@@ -77,11 +77,13 @@ public class CuentaDB implements Repositorio {
         }
     }
 
+    
+    
     @Override
     public void actualizar(Object objeto) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
             Cuentas Cuentas = (Cuentas) objeto;
-            String sentenciaSql = "UPDATE Cuentas SET NUMERO_CUENTA, = '" + Cuentas.getNumeroCuenta() + "', SALDO REAL = '"
+            String sentenciaSql = "UPDATE Cuentas SET NUMERO_CUENTA, = '" + Cuentas.getNumeroCuenta() + "', SALDO_REAL = '"
                     + Cuentas.getSaldo() + "', TIPO_CUENTA = " + Cuentas.getTipo() + ", ID_USUARIO = '"
                     + Cuentas.getId_usuario() + "' WHERE NUMERO_CUENTA = '" + Cuentas.getNumeroCuenta() + "';";
                     java.sql.Statement sentencia = conexion.createStatement();
@@ -96,7 +98,7 @@ public class CuentaDB implements Repositorio {
     @Override
     public Object buscar(String NUMERO_CUENTA) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
-            String sentenciaSQL = "SELECT * FROM Cuentas WHERE NUMERO_CUENTA = ?";
+            String sentenciaSQL = "SELECT * FROM Cuentas WHERE ID_USUARIO = ?";
             PreparedStatement sentencia = conexion.prepareStatement(sentenciaSQL);
             sentencia.setString(1, NUMERO_CUENTA);
             ResultSet resultadoConsulta = sentencia.executeQuery();

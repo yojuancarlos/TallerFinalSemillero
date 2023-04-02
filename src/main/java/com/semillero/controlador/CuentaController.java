@@ -32,7 +32,7 @@ public class CuentaController extends HttpServlet{
             //List<Cuentas> cuenta = CuentaServicio.listarCuenta();
             //String json = mapper.writeValueAsString(cuenta);
             //response.setContentType("application/json");
-            response.getWriter().println("tiene que escribir /listar?identificador=id de la cuenta ");
+            response.getWriter().println("tiene que escribir /listar?identificador=id del ususario ");
         } else {
             switch (path) {
                 case "/listar":

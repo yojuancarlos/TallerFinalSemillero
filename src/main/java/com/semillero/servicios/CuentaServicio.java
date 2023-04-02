@@ -32,8 +32,8 @@ public class CuentaServicio {
         return (List<Cuentas>) CuentaRepositorio.listar();
     }
 
-    public Cuentas buscarcCuentas(String numeroCuenta) throws Exception {
-        Object Cuenta = CuentaRepositorio.buscar(numeroCuenta);
+    public Cuentas buscarcCuentas(String id_cuenta) throws Exception {
+        Object Cuenta = CuentaRepositorio.buscar(id_cuenta);
         if (Cuenta == null) {
             throw new Exception("No se encontro la Cuenta");
         }

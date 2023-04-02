@@ -72,7 +72,19 @@ public class TransaccionesDB implements Repositorio{
     }                   
 
     
-    
+    public void tranferencia(Object objeto) {
+        try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
+            Transacciones transacciones = (Transacciones) objeto;
+            String sentenciaSql = "UPDATE Cuentas SET MONTO_REALL = '"
+                    + transacciones.getMonto() + "' WHERE NUMERO_CUENTA = '" +"';";
+                    java.sql.Statement sentencia = conexion.createStatement();
+            sentencia.execute(sentenciaSql);
+        } catch (SQLException e) {
+            System.err.println("Error de conexión: " + e);
+        } catch (Exception e) {
+            System.err.println("Error " + e.getMessage());
+        }
+    }
    
 
     @Override
