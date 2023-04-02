@@ -64,7 +64,7 @@ public class UsuarioDB implements Repositorio {
     @Override
     public void eliminar(String cedula) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
-            String sentenciaSql = "DELETE FROM Usuarios WHERE cedula = '" + cedula + "';";
+            String sentenciaSql = "DELETE on cascade FROM Usuarios WHERE cedula = '" + cedula + "';";
             java.sql.Statement sentencia = conexion.createStatement();
             sentencia.execute(sentenciaSql);
         } catch (SQLException e) {
@@ -128,7 +128,6 @@ public class UsuarioDB implements Repositorio {
                     int id = resultadoConsulta.getInt("id");
                     String nombre = resultadoConsulta.getString("nombre");
                     String apellido = resultadoConsulta.getString("apellido");
-
                     int cedula = resultadoConsulta.getInt("cedula");
 
                     Usuarios = new Usuarios(nombre, apellido, cedula);

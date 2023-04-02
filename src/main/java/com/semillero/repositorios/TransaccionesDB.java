@@ -17,7 +17,7 @@ public class TransaccionesDB implements Repositorio{
     public TransaccionesDB(){
         try {
             DriverManager.registerDriver(new org.sqlite.JDBC());
-            cadenaConexion="jdbc:sqlite:pruebas.db";
+            cadenaConexion="jdbc:sqlite:banco.db";
             creartabla();
         } catch (Exception e) {
             System.err.println("Error de conexión con la base de datos: " + e);
@@ -34,7 +34,7 @@ public class TransaccionesDB implements Repositorio{
                     "FECHA TEXT NOT NULL,\n" +
                     "HORA TEXT NOT NULL,\n" +
                     "TIPO_TRANSACCION TEXT NOT NULL,\n" +
-                    "MONTO REAL INTEGER NOT NULL,\n" +
+                    "MONTO_REAL INTEGER NOT NULL,\n" +
                     "ID_CUENTA INTEGER NOT NULL,\n" +
                     "TIPO_CUENTA_DESTINO TEXT,\n" +
                     "FOREIGN KEY(ID_CUENTA) REFERENCES CUENTAS(ID)\n" +
@@ -57,7 +57,7 @@ public class TransaccionesDB implements Repositorio{
     public void guardar(Object objeto) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
             Transacciones Transacciones = (Transacciones) objeto;
-            String sentenciaSql = "INSERT INTO Transacciones (FECHA, HORA, TIPO_TRANSACCION,MONTO REAL,ID_CUENTA,TIPO_CUENTA_DESTINO) " +
+            String sentenciaSql = "INSERT INTO Transacciones (FECHA, HORA, TIPO_TRANSACCION,MONTO_REAL,ID_CUENTA,TIPO_CUENTA_DESTINO) " +
             " VALUES('" + Transacciones.getFecha() + "', '" + Transacciones.getHora()
                          + "', '" + Transacciones.getTipo_transaccion() + "', " + Transacciones.getMonto()
                               + "," + Transacciones.getId_cuenta()
@@ -97,7 +97,7 @@ public class TransaccionesDB implements Repositorio{
                 String FECHA = resultadoConsulta.getString("FECHA");
                 String HORA = resultadoConsulta.getString("HORA");
                 String TIPO_TRANSACCION = resultadoConsulta.getNString("TIPO_TRANSACCION");
-                int MONTO = resultadoConsulta.getInt("MONTO");
+                int MONTO = resultadoConsulta.getInt("MONTO_REAL");
                 int TIPO_CUENTA_DESTINO = resultadoConsulta.getInt("TIPO_CUENTA_DESTINO");
                 int ID_CUENTAResultado = resultadoConsulta.getInt("ID_CUENTA");
                 
@@ -119,17 +119,17 @@ public class TransaccionesDB implements Repositorio{
         List<Transacciones> Transaccioness = new ArrayList<Transacciones>();
 
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
-            String sentenciaSql = "SELECT * FROM Transaccionesa";
+            String sentenciaSql = "SELECT * FROM TRANSACCIONES";
             PreparedStatement sentencia = conexion.prepareStatement(sentenciaSql);
             ResultSet resultadoConsulta = sentencia.executeQuery();
 
             if (resultadoConsulta != null) {
                 while (resultadoConsulta.next()) {
                     Transacciones Transacciones = null;
-                    String FECHA = resultadoConsulta.getString("FECHA");
+                String FECHA = resultadoConsulta.getString("FECHA");
                 String HORA = resultadoConsulta.getString("HORA");
-                String TIPO_TRANSACCION = resultadoConsulta.getNString("TIPO_TRANSACCION");
-                int MONTO = resultadoConsulta.getInt("MONTO");
+                String TIPO_TRANSACCION = resultadoConsulta.getString("TIPO_TRANSACCION");
+                int MONTO = resultadoConsulta.getInt("MONTO_REAL");
                 int TIPO_CUENTA_DESTINO = resultadoConsulta.getInt("TIPO_CUENTA_DESTINO");
                 int ID_CUENTAResultado = resultadoConsulta.getInt("ID_CUENTA");
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.semillero.entidades.Cuentas;
-import com.semillero.entidades.Usuarios;
+
 import com.semillero.repositorios.CuentaDB;
 import com.semillero.repositorios.Repositorio;
 

@@ -11,15 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.semillero.entidades.Cuentas;
+import com.semillero.entidades.Transacciones;
 import com.semillero.entidades.Usuarios;
 import com.semillero.servicios.CuentaServicio;
+import com.semillero.servicios.TransaccionServicio;
 import com.semillero.servicios.UsuarioServicio;
-public class CuentaController extends HttpServlet{
-    private CuentaServicio cuentaServicio;
+public class TransaccionesController extends HttpServlet{
+    private TransaccionServicio TransaccionServicio;
     private ObjectMapper mapper;
 
-    public CuentaController() {
-        cuentaServicio = new CuentaServicio();
+    public TransaccionesController() {
+        TransaccionServicio = new TransaccionServicio();
         mapper = new ObjectMapper();
     }
 
@@ -29,18 +31,18 @@ public class CuentaController extends HttpServlet{
 
         String path = request.getPathInfo();
         if (path == null) {
-            //List<Cuentas> cuenta = CuentaServicio.listarCuenta();
-            //String json = mapper.writeValueAsString(cuenta);
-            //response.setContentType("application/json");
-            response.getWriter().println("tiene que escribir /listar?identificador=id de la cuenta ");
+            List<Transacciones> transacciones = TransaccionServicio.listartTransacciones();
+            String json = mapper.writeValueAsString(transacciones);
+            response.setContentType("application/json");
+            response.getWriter().println(json);
         } else {
             switch (path) {
                 case "/listar":
                     String identificador = request.getParameter("identificador");
                 
                     try {
-                        Cuentas cuenta = cuentaServicio.buscarcCuentas(identificador);
-                        String json = mapper.writeValueAsString(cuenta);
+                        Transacciones transaccion = TransaccionServicio.buscarctTransacciones(identificador);
+                        String json = mapper.writeValueAsString(transaccion);
                         response.setContentType("application/json");
                         response.getWriter().println(json);
                     } catch (Exception e) {
@@ -77,10 +79,10 @@ public class CuentaController extends HttpServlet{
         if (content != null && content.equals("application/json")) {
             Map<String, Object> personaMap = mapper.readValue(request.getInputStream(), HashMap.class);
             try {         
-                cuentaServicio.guardarCuenta(personaMap);
+                TransaccionServicio.guardartransaccion(personaMap);
                 response.setStatus(HttpServletResponse.SC_CREATED);
                 Map<String, String> respuesta = new HashMap<>();
-                respuesta.put("mensaje", "cuenta guardada con exito");
+                respuesta.put("mensaje", "transferencia guardada con exito");
                 String json = mapper.writeValueAsString(respuesta);
                 response.setContentType("application/json");
                 response.getWriter().println(json);
@@ -115,7 +117,7 @@ public class CuentaController extends HttpServlet{
                 CuentaServicio.actualizarCuenta(personaMap);
                 response.setStatus(HttpServletResponse.SC_OK);
                 Map<String, String> respuesta = new HashMap<>();
-                respuesta.put("mensaje", "Persona actualizada con exito");
+                respuesta.put("mensaje", "transaccion actualizada con exito");
                 String json = mapper.writeValueAsString(respuesta);
                 response.setContentType("application/json");
                 response.getWriter().println(json);
@@ -144,11 +146,11 @@ public class CuentaController extends HttpServlet{
             throws ServletException, IOException {
         String identificador = request.getParameter("identificador");
         try {
-            cuentaServicio.eliminarCuenta(identificador);
+            TransaccionServicio.eliminartransacciones(identificador);
 
             response.setStatus(HttpServletResponse.SC_OK);
             Map<String, String> respuesta = new HashMap<>();
-            respuesta.put("mensaje", "Persona eliminada con exito");
+            respuesta.put("mensaje", "transaccion eliminada con exito");
             String json = mapper.writeValueAsString(respuesta);
             response.setContentType("application/json");
             response.getWriter().println(json);

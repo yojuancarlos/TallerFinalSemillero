@@ -67,7 +67,7 @@ public class CuentaDB implements Repositorio {
     @Override
     public void eliminar(String NUMERO_CUENTA) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
-            String sentenciaSql = "DELETE FROM Cuentas WHERE NUMERO_CUENTA = '" + NUMERO_CUENTA + "';";
+            String sentenciaSql = "DELETE on cascade FROM Cuentas WHERE NUMERO_CUENTA = '" + NUMERO_CUENTA + "';";
             java.sql.Statement sentencia = conexion.createStatement();
             sentencia.execute(sentenciaSql);
         } catch (SQLException e) {
