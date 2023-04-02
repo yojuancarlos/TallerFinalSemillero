@@ -29,7 +29,7 @@ public class TransaccionesDB implements Repositorio{
             String cadenaConexion = "jdbc:sqlite:banco.db";
             String sql = 
 
-                    "CREATE TABLE TRANSACCIONES(\n" +
+                    "CREATE TABLE if NOT EXISTS TRANSACCIONES(\n" +
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "FECHA TEXT NOT NULL,\n" +
                     "HORA TEXT NOT NULL,\n" +

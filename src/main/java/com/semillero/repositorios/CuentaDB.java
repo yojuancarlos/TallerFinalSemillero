@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.print.DocFlavor.STRING;
 
-import com.semillero.entidades.Ahorros;
+
 import com.semillero.entidades.Cuentas;
 
 public class CuentaDB implements Repositorio {
@@ -19,7 +19,7 @@ public class CuentaDB implements Repositorio {
     public CuentaDB(){
         try {
             DriverManager.registerDriver(new org.sqlite.JDBC());
-            cadenaConexion="jdbc:sqlite:pruebas.db";
+            cadenaConexion="jdbc:sqlite:banco.db";
             creartabla();
         } catch (Exception e) {
             System.err.println("Error de conexión con la base de datos: " + e);
@@ -30,7 +30,7 @@ public class CuentaDB implements Repositorio {
             DriverManager.registerDriver(new org.sqlite.JDBC());
             String cadenaConexion = "jdbc:sqlite:banco.db";
             String sql = 
-                    "CREATE TABLE CUENTAS(\n" +
+                    "CREATE TABLE  if NOT EXISTS CUENTAS(\n" +
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "NUMERO_CUENTA TEXT NOT NULL UNIQUE,\n" +
                     "SALDO REAL INTEGER NOT NULL,\n" +
@@ -60,7 +60,7 @@ public class CuentaDB implements Repositorio {
     public void guardar(Object objeto) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
             Cuentas Cuentas = (Cuentas) objeto;
-            String sentenciaSql = "INSERT INTO Cuentas (NUMERO_CUENTA, SALDO REAL, TIPO_CUENTA,ID_USUARIO) " +
+            String sentenciaSql = "INSERT INTO CUENTAS (NUMERO_CUENTA, SALDO REAL, TIPO_CUENTA,ID_USUARIO) " +
             " VALUES('" + Cuentas.getNumeroCuenta() + "', " + Cuentas.getSaldo()
                      + ",'" + Cuentas.getTipo()
                      + "'', " + Cuentas.getId_usuario() + ");";
@@ -116,7 +116,7 @@ public class CuentaDB implements Repositorio {
                 String TIPOCUENTA = resultadoConsulta.getString("TIPO_CUENTA");
                 Integer IDcuenta = resultadoConsulta.getInt("ID_USUARIO");
                 
-                Cuentas = new Cuentas(0, NUMEROCUENTA, SALDOREAL, IDcuenta, TIPOCUENTA);
+                Cuentas = new Cuentas( NUMEROCUENTA, SALDOREAL, IDcuenta, TIPOCUENTA);
                 
                 return Cuentas;
             }
@@ -132,7 +132,7 @@ public class CuentaDB implements Repositorio {
         List<Cuentas> Cuentass = new ArrayList<Cuentas>();
 
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
-            String sentenciaSql = "SELECT * FROM Cuentas";
+            String sentenciaSql = "SELECT * FROM CUENTAS";
             PreparedStatement sentencia = conexion.prepareStatement(sentenciaSql);
             ResultSet resultadoConsulta = sentencia.executeQuery();
 
@@ -144,7 +144,7 @@ public class CuentaDB implements Repositorio {
                 String TIPOCUENTA = resultadoConsulta.getString("TIPO_CUENTA");
                 Integer IDUSUARIO = resultadoConsulta.getInt("ID_USUARIO");
 
-                    Cuentas = new Cuentas(0, NUMEROCUENTA, SALDOREAL, IDUSUARIO, TIPOCUENTA);
+                    Cuentas = new Cuentas( NUMEROCUENTA, SALDOREAL, IDUSUARIO, TIPOCUENTA);
                     Cuentass.add(Cuentas);
                 }
                 return Cuentass;

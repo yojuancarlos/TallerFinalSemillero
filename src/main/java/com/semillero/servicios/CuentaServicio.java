@@ -9,7 +9,7 @@ import com.semillero.repositorios.CuentaDB;
 import com.semillero.repositorios.Repositorio;
 
 public class CuentaServicio {
-    private Repositorio CuentaRepositorio;
+    private static Repositorio CuentaRepositorio;
 
     public CuentaServicio() {
         CuentaRepositorio = new CuentaDB();
@@ -23,11 +23,11 @@ public class CuentaServicio {
         Integer id_usuario = (Integer) datos.get("id_usuario");
         String tipo = (String) datos.get("tipo");
 
-        Cuentas newPerson = new Cuentas(id_cuentas, numeroCuenta, saldo, id_usuario, tipo);
+        Cuentas newPerson = new Cuentas( numeroCuenta, saldo, id_usuario, tipo);
         CuentaRepositorio.guardar(newPerson);
     }
 
-    public List<Cuentas> listarCuenta() {
+    public static List<Cuentas> listarCuenta() {
         
         return (List<Cuentas>) CuentaRepositorio.listar();
     }
@@ -44,7 +44,7 @@ public class CuentaServicio {
         CuentaRepositorio.eliminar(identificador);
     }
 
-    public void actualizarCuenta(Map datos) {
+    public static void actualizarCuenta(Map datos) {
         int id_cuentas = (int) datos.get("id_cuentas");
         String numeroCuenta = (String) datos.get("numeroCuenta");
         int saldo = (int) datos.get("saldo");
@@ -52,7 +52,7 @@ public class CuentaServicio {
         String tipo = (String) datos.get("tipo");
 
 
-        Cuentas newPerson = new Cuentas(id_cuentas, numeroCuenta, saldo, id_usuario, tipo);
+        Cuentas newPerson = new Cuentas( numeroCuenta, saldo, id_usuario, tipo);
         CuentaRepositorio.actualizar(newPerson);
     }
 
@@ -63,7 +63,7 @@ public class CuentaServicio {
         Integer id_usuario = (Integer) datos.get("id_usuario");
         String tipo = (String) datos.get("tipo");
 
-        Cuentas newPerson = new Cuentas(id_cuentas, numeroCuenta, saldo, id_usuario, tipo);
+        Cuentas newPerson = new Cuentas( numeroCuenta, saldo, id_usuario, tipo);
         CuentaRepositorio.actualizarId(newPerson, id);
     }
 }

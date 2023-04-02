@@ -57,8 +57,8 @@ public   class Cuentas {
         this.tipo = tipo;
     }
 
-    public Cuentas(int id_cuentas, String numeroCuenta, int saldo, Integer id_usuario, String tipo) {
-        this.id_cuentas = id_cuentas;
+    public Cuentas( String numeroCuenta, int saldo, Integer id_usuario, String tipo) {
+        
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
         this.id_usuario = id_usuario;
@@ -85,13 +85,8 @@ public   class Cuentas {
 	
 	
     public void transferir(double monto, Cuentas cuentaDestino) {
-        if (this instanceof Ahorros && cuentaDestino instanceof Corriente) {
-            monto += (monto * 0.015);
-        } else if (this instanceof Corriente && cuentaDestino instanceof Ahorros) {
-            monto += (monto * 0.015);
-        } else if (this instanceof Ahorros && cuentaDestino instanceof Corriente) {
-            monto += (monto * 0.02);
-        }
+        
+        
 
         if (monto <= this.saldo) {
             this.saldo -= monto;

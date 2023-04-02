@@ -30,8 +30,8 @@ public class Usuarios {
     public void setCedula(int cedula) {
         this.cedula = cedula;
     }
-    public Usuarios(int id, String nombre, String apellido, int cedula) {
-        this.id = id;
+    public Usuarios( String nombre, String apellido, int cedula) {
+        
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;

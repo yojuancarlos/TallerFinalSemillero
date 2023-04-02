@@ -7,23 +7,23 @@ import com.semillero.entidades.Cuentas;
 import com.semillero.entidades.Usuarios;
 import com.semillero.repositorios.CuentaDB;
 import com.semillero.repositorios.Repositorio;
+import com.semillero.repositorios.UsuarioDB;
 
 public class UsuarioServicio {
     private static Repositorio usuarioRepositorio;
 
     public UsuarioServicio() {
-        usuarioRepositorio = new CuentaDB();
+        usuarioRepositorio = new UsuarioDB();
     }
 
     public void guardarUsuario(Map datos) {
-        int id = (int) datos.get("id");
-        String nombre = (String) datos.get("nombre");
         
+        String nombre = (String) datos.get("nombre");
         String apellido = (String) datos.get("apellido");
         int cedula = (int) datos.get("cedula");
         
 
-        Usuarios newPerson = new Usuarios(id, nombre, apellido, cedula);
+        Usuarios newPerson = new Usuarios(nombre, apellido, cedula);
         usuarioRepositorio.guardar(newPerson);
     }
 
@@ -52,7 +52,7 @@ public class UsuarioServicio {
         int cedula = (int) datos.get("cedula");
 
 
-        Usuarios newPerson = new Usuarios(id, nombre, apellido, cedula);
+        Usuarios newPerson = new Usuarios( nombre, apellido, cedula);
         usuarioRepositorio.actualizar(newPerson);
     }
 
@@ -64,7 +64,7 @@ public class UsuarioServicio {
         int cedula = (int) datos.get("cedula");
 
 
-        Usuarios newPerson = new Usuarios(id, nombre, apellido, cedula);
+        Usuarios newPerson = new Usuarios( nombre, apellido, cedula);
         usuarioRepositorio.actualizarId(newPerson, id_Usuario);
     }
 }
