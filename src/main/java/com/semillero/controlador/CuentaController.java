@@ -29,14 +29,15 @@ public class CuentaController extends HttpServlet{
 
         String path = request.getPathInfo();
         if (path == null) {
-            List<Cuentas> cuenta = CuentaServicio.listarCuenta();
-            String json = mapper.writeValueAsString(cuenta);
-            response.setContentType("application/json");
-            response.getWriter().println(json);
+            //List<Cuentas> cuenta = CuentaServicio.listarCuenta();
+            //String json = mapper.writeValueAsString(cuenta);
+            //response.setContentType("application/json");
+            response.getWriter().println("tiene que escribir /listar?identificador=id de la persona ");
         } else {
             switch (path) {
-                case "/buscar":
+                case "/listar":
                     String identificador = request.getParameter("identificador");
+                
                     try {
                         Cuentas cuenta = cuentaServicio.buscarcCuentas(identificador);
                         String json = mapper.writeValueAsString(cuenta);
@@ -51,6 +52,9 @@ public class CuentaController extends HttpServlet{
                         response.getWriter().println(json);
                     }
                     break;
+                case "/nose":
+                    System.out.println("algo wey");
+                break;
                 default:
                     response.setStatus(404);
                     Map<String, String> error = new HashMap<>();
