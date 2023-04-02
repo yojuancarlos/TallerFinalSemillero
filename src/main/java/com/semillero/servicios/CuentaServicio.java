@@ -17,7 +17,7 @@ public class CuentaServicio {
 
     
     public void guardarCuenta(Map datos) {
-        int id_cuentas = (int) datos.get("id_cuentas");
+        //int id_cuentas = (int) datos.get("id_cuentas");
         String numeroCuenta = (String) datos.get("numeroCuenta");
         int saldo = (int) datos.get("saldo");
         Integer id_usuario = (Integer) datos.get("id_usuario");

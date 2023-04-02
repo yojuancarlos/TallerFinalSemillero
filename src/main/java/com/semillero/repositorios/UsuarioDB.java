@@ -31,7 +31,7 @@ public class UsuarioDB implements Repositorio {
 
             DriverManager.registerDriver(new org.sqlite.JDBC());
             String cadenaConexion = "jdbc:sqlite:banco.db";
-            String sql = "CREATE TABLE if NOT EXISTS USUARIOS(id INT PRIMARY KEY AUTOINCREMENT,nombre VARCHAR(50),apellido VARCHAR(50),cedula INT );";
+            String sql = "CREATE TABLE if NOT EXISTS USUARIOS(id INT PRIMARY KEY AUTOINCREMENT,nombre VARCHAR(50),apellido VARCHAR(50),cedula INT NOT NULL UNIQUE );";
 
            
 
@@ -132,6 +132,7 @@ public class UsuarioDB implements Repositorio {
                     int cedula = resultadoConsulta.getInt("cedula");
 
                     Usuarios = new Usuarios(nombre, apellido, cedula);
+                    Usuarios.setId(id);
                     Usuarioss.add(Usuarios);
                 }
                 return Usuarioss;

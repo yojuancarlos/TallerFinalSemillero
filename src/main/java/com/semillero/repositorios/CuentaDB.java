@@ -33,7 +33,7 @@ public class CuentaDB implements Repositorio {
                     "CREATE TABLE  if NOT EXISTS CUENTAS(\n" +
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "NUMERO_CUENTA TEXT NOT NULL UNIQUE,\n" +
-                    "SALDO REAL INTEGER NOT NULL,\n" +
+                    "SALDO_REAL INTEGER NOT NULL,\n" +
                     "TIPO_CUENTA TEXT NOT NULL,\n" +
                     "ID_USUARIO INTEGER NOT NULL,\n" +
                     "FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID)\n" +
@@ -47,23 +47,14 @@ public class CuentaDB implements Repositorio {
             System.err.println("Error de conexión con la base de datos: " + e);
         }
     }
-        
-    
-
-
-
-
-
-
-
     @Override
     public void guardar(Object objeto) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
             Cuentas Cuentas = (Cuentas) objeto;
-            String sentenciaSql = "INSERT INTO CUENTAS (NUMERO_CUENTA, SALDO REAL, TIPO_CUENTA,ID_USUARIO) " +
+            String sentenciaSql = "INSERT INTO CUENTAS (NUMERO_CUENTA, SALDO_REAL, TIPO_CUENTA,ID_USUARIO) " +
             " VALUES('" + Cuentas.getNumeroCuenta() + "', " + Cuentas.getSaldo()
                      + ",'" + Cuentas.getTipo()
-                     + "'', " + Cuentas.getId_usuario() + ");";
+                     + "', " + Cuentas.getId_usuario() + ");";
             java.sql.Statement sentencia = conexion.createStatement();
             sentencia.execute(sentenciaSql);
         } catch (SQLException e) {
@@ -139,12 +130,14 @@ public class CuentaDB implements Repositorio {
             if (resultadoConsulta != null) {
                 while (resultadoConsulta.next()) {
                     Cuentas Cuentas = null;
+                    int id = resultadoConsulta.getInt("id");
                     String NUMEROCUENTA = resultadoConsulta.getString("NUMERO_CUENTA");
                 Integer SALDOREAL = resultadoConsulta.getInt("SALDO_REAL");
                 String TIPOCUENTA = resultadoConsulta.getString("TIPO_CUENTA");
                 Integer IDUSUARIO = resultadoConsulta.getInt("ID_USUARIO");
 
                     Cuentas = new Cuentas( NUMEROCUENTA, SALDOREAL, IDUSUARIO, TIPOCUENTA);
+                    Cuentas.setId_cuentas(id);
                     Cuentass.add(Cuentas);
                 }
                 return Cuentass;
